@@ -16,23 +16,35 @@ class ImportDataController extends Controller
     {
         ImportData::truncate();
 
-        DB::beginTransaction();
-        try {
-            Excel::import(new DataImport(), $request->file('users'));
-        }catch(\Exception $e){
-            DB::rollBack();
-            return response()->json(['success'=>0,'exception'=>$e->getMessage()], 200);
-        }
+        Excel::import(new DataImport, $request->file('users'));
+
+//        DB::beginTransaction();
+//        try {
+//            Excel::import(new DataImport, $request->file('users'));
+//        }catch(\Exception $e){
+//            DB::rollBack();
+//            return response()->json(['success'=>0,'exception'=>$e->getMessage()], 200);
+//        }
 
         return response()->json(['success'=>1,'message' => 'Data Imported'], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function number_conversion($data)
     {
-        //
+//        return $data;
+//        $ret_value = 0;
+//        $length = strlen($data->point);
+//        $getHalf = substr($data->point,$length-2);
+//        $whole_number = substr($data->point,0,$length-2);
+
+        $length = strlen($data);
+        $getHalf = substr($data,$length-2);
+        $whole_number = substr($data,0,$length-2);
+
+        if($getHalf == '½'){
+            return (int)$whole_number + 0.5;
+        }
+        return $data;
     }
 
     /**

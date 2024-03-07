@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\ImportData;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
+use App\Http\Controllers\ImportDataController;
 
 class DataImport implements ToModel, WithStartRow
 {
@@ -15,6 +16,7 @@ class DataImport implements ToModel, WithStartRow
     }
     public function model(array $row)
     {
+        $importDataController = new ImportDataController();
         return new ImportData([
             'rank' => $row[0],
             'name'=>$row[3],
@@ -22,12 +24,12 @@ class DataImport implements ToModel, WithStartRow
             'irtg'=>$row[5],
             'club'=>$row[6],
             'type'=>$row[7],
-            'point'=>$row[8],
-            'bh1'=>$row[9],
-            'bh2'=>$row[10],
-            'sb'=>$row[11],
-            'res'=>$row[12],
-            'vict'=>$row[13],
+            'point'=>$importDataController->number_conversion($row[8]),
+            'bh1'=>$importDataController->number_conversion($row[9]),
+            'bh2'=>$importDataController->number_conversion($row[10]),
+            'sb'=>$importDataController->number_conversion($row[11]),
+            'res'=>$importDataController->number_conversion($row[12]),
+            'vict'=>$importDataController->number_conversion($row[13]),
         ]);
     }
 

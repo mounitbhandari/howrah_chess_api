@@ -20,4 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post("upload",[ImportDataController::class,'import_data']);
+Route::get("test_api",[ImportDataController::class,'test_api']);
 
