@@ -23,4 +23,9 @@ class ImportData extends Model
         'res',
         'vict',
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }

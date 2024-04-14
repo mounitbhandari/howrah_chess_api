@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Imports\DataImport;
+use App\Models\Category;
 use App\Models\ImportData;
 use App\Http\Requests\StoreImportDataRequest;
 use App\Http\Requests\UpdateImportDataRequest;
+use App\Models\Prize;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -47,12 +49,24 @@ class ImportDataController extends Controller
         return $data;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreImportDataRequest $request)
+    public function get_data()
     {
-        //
+        $category = Category::get();
+//        $prize = Prize::get();
+        $ret = [];
+        foreach ($category as $item){
+            $data = ImportData::whereType($item['type'])->limit($item['total'])->get();
+            $prize = Prize::whereType($item['type'])->limit($item['total'])->get();
+
+            foreach ($data as $key => $arr){
+                $arr->price_value = $prize[$key]->prize;
+                $arr->price_domain = $prize[$key]->type;
+                $ret[] = $arr;
+                $arr->save();
+            }
+        }
+
+        return $ret;
     }
 
     /**

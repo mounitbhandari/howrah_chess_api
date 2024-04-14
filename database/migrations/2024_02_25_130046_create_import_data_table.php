@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('sb')->nullable(true);
             $table->string('res')->nullable(true);
             $table->string('vict')->nullable(true);
+            $table->string('price_value')->default(0);
+            $table->string('price_domain')->nullable(true);
             $table->timestamps();
         });
     }

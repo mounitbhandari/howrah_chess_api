@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImportDataController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PrizeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +22,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post("upload",[ImportDataController::class,'import_data']);
-Route::get("test_api",[ImportDataController::class,'test_api']);
+Route::get("getData",[ImportDataController::class,'get_data']);
+
+
+//category
+Route::get("getCategory",[CategoryController::class,'get_category']);
+Route::post("saveCategory",[CategoryController::class,'save_category']);
+Route::post("updateCategory",[CategoryController::class,'update_category']);
+Route::get("deleteCategory/{id}",[CategoryController::class,'delete_category']);
+
+//prize
+Route::get("getPrize",[PrizeController::class,'get_prize']);
+Route::post("savePrize",[PrizeController::class,'save_prize']);
 
