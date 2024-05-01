@@ -24,7 +24,7 @@ class LoginResource extends JsonResource
             'user_type_name' => UserType::find($this->user_type_id)->name,
             'image' => $this->image,
             'email' => $this->email,
-            'token' => $this->token
+            // 'token' => $this->token
         ];
     }
 }

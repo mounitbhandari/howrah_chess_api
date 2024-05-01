@@ -17,6 +17,6 @@ class LoginController extends Controller
         }
         $token = $user->createToken('my-app-token')->plainTextToken;
         $user->token = $token;
-        return response()->json(['success'=>1,'data'=>new LoginResource($user), $token => $token], 200,[],JSON_NUMERIC_CHECK);
+        return response()->json(['success'=>1,'data'=>new LoginResource($user), 'token' => $token], 200,[],JSON_NUMERIC_CHECK);
     }
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImportDataController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PrizeController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post("upload",[ImportDataController::class,'import_data']);
 Route::get("getData",[ImportDataController::class,'get_data']);
 
+//logIn
+Route::post("login", [LoginController::class, 'login']);
 
 //category
 Route::get("getCategory",[CategoryController::class,'get_category']);
